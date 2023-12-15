@@ -232,48 +232,112 @@
     $e = rand(1000, 9999);
     $f = rand(1000, 9999);
 
-    echo "$a $b $c $d $e $f<br/>";
+    echo "Before sort: $a, $b, $c, $d, $e, $f<br/>";
 
     $result= $a . '';
-    $minnum = $a;
+    $min1 = $a;
+    $min2 = null;
+    $min3 = null;
+    $min4 = null;
+    $min5 = null;
+    $min6 = null;
 
-    if ($b < $minnum){
-        $minnum = $b;
-        $result = $result . ' ' . $b;
+    if ($b < $min1){
+        $min2 = $min1; 
+        $min1 = $b;
     }else{
-        $result = $b . ' ' . $result;
+        $min2 = $b;    
     }
 
-    if ($c < $minnum){
-        $minnum = $c;
-        $result = $result . ' ' . $c;
+    if ($c < $min1){
+        $min3 = $min2;
+        $min2 = $min1;
+        $min1 = $c;
     }else{
-        $result = $c . ' ' . $result;
+        if ($c < $min2){
+            $min3 = $min2;
+            $min2 = $c; 
+        }else{
+            $min3 = $c;
+        }
     }
 
-    if ($d < $minnum){
-        $minnum = $d;
-        $result = $result . ' ' . $d;
+    if ($d < $min1){
+        $min4 = $min3;
+        $min3 = $min2;
+        $min2 =$min1;
+        $min1 = $d;
     }else{
-        $result = $d . ' ' . $result;
+        if ($d < $min2){
+            $min4 = $min3;
+            $min3 = $min2;
+            $min2 = $d; 
+        }elseif($d < $min3){
+            $min4 = $min3;
+            $min3 = $d;
+        }else{
+            $min4 =$d;
+        }
     }
 
-    if ($e < $minnum){
-        $minnum = $e;
-        $result = $result . ' ' . $e;
-        
+    if ($e < $min1){
+        $min5 = $min4;
+        $min4 = $min3;
+        $min3 = $min2;
+        $min2 =$min1;
+        $min1 = $e;
     }else{
-        $result = $e . ' ' . $result;
+        if ($e < $min2){
+            $min5 = $min4;
+            $min4 = $min3;
+            $min3 = $min2;
+            $min2 = $e; 
+        }elseif($e < $min3){
+            $min5 = $min4;
+            $min4 = $min3;
+            $min3 = $e;
+        }elseif($e < $min4){
+            $min5 = $min4;
+            $min4 =$e;
+        }else{
+            $min5 =$e;
+        }
     }
 
-    if ($f < $minnum){
-        $minnum = $f;
-        $result = $result . ' ' . $f;
+    
+    if ($f < $min1){
+        $min6 =$min5;
+        $min5 = $min4;
+        $min4 = $min3;
+        $min3 = $min2;
+        $min2 =$min1;
+        $min1 = $f;
     }else{
-        $result = $f . ' ' . $result;
+        if ($f < $min2){
+            $min6 = $min5;
+            $min5 = $min4;
+            $min4 = $min3;
+            $min3 = $min2;
+            $min2 = $f; 
+        }elseif($f < $min3){
+            $min6 = $min5;
+            $min5 = $min4;
+            $min4 = $min3;
+            $min3 = $f;
+        }elseif($f < $min4){
+            $min6 = $min5;
+            $min5 = $min4;
+            $min4 = $f;
+        }elseif($f < $min5){
+            $min6 = $min5;
+            $min5 = $f;
+        }else{
+            $min6 = $f;
+        }
+
     }
     
-    echo $result;
+    echo "After sort: $min6, $min5, $min4, $min3, $min2, $min1";
     ?>
     </p>
 </body>
