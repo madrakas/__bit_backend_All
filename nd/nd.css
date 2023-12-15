@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    flex-direction: column;
+    width: 60rem;
+    margin-left: calc((100% - 60rem) / 2)
+    
+}
+.solution{
+    display: block;
+    width: calc(100%-50px) ;
+    padding: 10px;
+    background-color:rgb(78, 78, 78);
+    color: white;
+    border: 1px solid black;
+}
