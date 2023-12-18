@@ -207,5 +207,58 @@
         echo 'Viso didelių smūgių: ' . $hcountsum2;
     ?>
     </p>
+    <p>11. Sugeneruokite stringą, kurį sudarytų 50 atsitiktinių skaičių nuo 1 iki 200, atskirtų tarpais. Skaičiai turi būti unikalūs (t.y. nesikartoti). Sugeneruokite antrą stringą, pasinaudodami pirmu, palikdami jame tik pirminius skaičius (t.y tokius, kurie dalinasi be liekanos tik iš 1 ir patys savęs). Skaičius stringe sudėliokite didėjimo tvarka, nuo mažiausio iki didžiausio.</p>
+    <p class='solution'>
+    <?php
+    $string1 = ' ';
+    for ($i=0; $i < 50; ) { 
+        $randNum = rand(1, 200);
+        if (!str_contains($string1, ' ' . $randNum . ' ')){
+            $i++; 
+            $string1 .=  $randNum . ' ';
+        }
+    }
+
+    trim($string1, " ");
+
+    echo $string1;
+
+    $string2 = '';
+    $word= '';
+    for ($i=0; $i < strlen($string1) ; $i++) { 
+        if (mb_substr($string1, $i, 1) === ' '){
+            $number = (int)$word; 
+            if (primeCheck($number) === 1){
+                $string2 .= $word . ' ';
+            }
+            $word = '';
+        } else{
+            $word .= mb_substr($string1, $i, 1);
+        }
+    }
+
+    $resultArr =explode(' ', $string2);
+
+    // usort($farm, fn($a, $b) => $a['price'] <=> $b['price']);
+    usort($resultArr, fn($a, $b) => $a <=> $b);
+    
+    echo '<br/>-----------<br/>';
+    foreach($resultArr as $number){
+        if(strlen($number) > 0){
+            echo $number . ' ';
+        }
+    }
+
+function primeCheck($number){
+    if ($number == 1)
+    return 0;
+    for ($i = 2; $i <= $number/2; $i++){
+        if ($number % $i == 0)
+            return 0;
+    }
+    return 1;
+}
+    ?>
+    </p>
 </body>
 </html>
