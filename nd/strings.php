@@ -104,9 +104,113 @@
     <?php
         $string = 'Star Wars: Episode '.str_repeat(' ', rand(0,5)). rand(1,9) . ' - A New Hope'; 
         echo $string;
-        $start = srtpos()
+        echo ('<br/>------------<br/>');
+        $start = 19;
+        $end = strlen($string) - 13;
+        $len = $end - $start;
+        $result = mb_substr($string, $start, $len );
+        $result = str_replace(' ',  '', $result);
+        echo $result;
     ?>
     </p>
 
+    <p>9. Suskaičiuoti kiek stringe “Don't Be a Menace to South Central While Drinking Your Juice in the Hood” yra žodžių trumpesnių arba lygių nei 5 raidės. Pakartokite kodą su stringu “Tik nereikia gąsdinti Pietų Centro, geriant sultis pas save kvartale”.</p>
+    <p class='solution'>
+    <?php
+    $string = "Don't Be a Menace to South Central While Drinking Your Juice in the Hood ";
+    $string2 = "Tik nereikia gąsdinti Pietų Centro, geriant sultis pas save kvartale ";
+   
+    function wordCounter($input){ 
+        $wordcounter =  0;
+        $lettercounter = 0;
+        $words = '';
+        $word = '';
+        for ($i=0; $i < strlen($input) ; $i++) { 
+            if (mb_substr($input, $i, 1) === ' '){
+                if ($lettercounter <= 5){
+                    $words = $words . ' ' . $word;
+                    $wordcounter++;
+                    
+                }
+                $lettercounter = 0;
+                $word = '';
+            } else{
+                $word = $word . mb_substr($input, $i, 1);
+                $lettercounter++;
+            }
+        }
+        echo $wordcounter . ': ' . $words;
+    }
+
+    wordCounter($string);
+    echo '<br/>';
+    wordCounter($string2);
+    
+    ?>
+    </p>
+
+    
+    <p>10.Parašyti kodą, kuris generuotų atsitiktinį stringą iš lotyniškų mažųjų raidžių. Stringo ilgis 3 simboliai.</p>
+    <p class='solution'>
+    <?php
+    $letters = "abcdefghijklmnopqrstuvwxyz";
+    echo mb_substr($letters, rand(0, strlen($letters) - 1), 1);
+    ?>
+    </p>
+
+    <p>11. Parašykite kodą, kuris generuotų atsitiktinį stringą su 10 atsitiktine tvarka išdėliotų žodžių, o žodžius generavimui imtų iš 9-me uždavinyje pateiktų dviejų stringų. Žodžiai neturi kartotis. (reikės masyvo)</p>
+    <p class='solution'>
+    <?php
+    $string1 = "Don't Be a Menace to South Central While Drinking Your Juice in the Hood ";
+    $string2 = "Tik nereikia gąsdinti Pietų Centro, geriant sultis pas save kvartale ";
+    $string2 =  str_replace(',', '', $string2);
+    
+    $result = '';
+
+    for ($i=0; $i <10 ;) { 
+        $randW = randomWord($string1, $string2);
+        if (!str_contains($result, $randW)){
+            $result .= $randW . ' ';
+            $i++;
+        }
+        
+    }
+
+    echo $result;
+
+    function randomWord($string1, $string2){
+        $strSel =rand(1,2);
+        if ($strSel === 1){
+            $mystr =$string1;
+        }else{
+            $mystr =$string2;
+        }
+        //counting spaces in string. Solving without arrays.
+        $wordCounter = 0;
+        for ($i=0; $i < strlen($mystr) ; $i++) { 
+            if (mb_substr($mystr, $i, 1) === ' '){
+                $wordCounter++;
+            }            
+        }
+        
+        //catching rand word
+        $wordNum = rand(1, $wordCounter);
+        $wordCounter2 = 0;
+        $word = '';
+        for ($i=0; $i < strlen($mystr) ; $i++) { 
+            if (mb_substr($mystr, $i, 1) === ' '){
+                $wordCounter2++;
+                if ($wordCounter2 === $wordNum)    {
+                    return $word;
+                }
+                $word ='';
+            }else{
+                $word .= mb_substr($mystr, $i, 1);
+            }
+        }
+    }
+
+    ?>
+    </p>
 </body>
 </html>
