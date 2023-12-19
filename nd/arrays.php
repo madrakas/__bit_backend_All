@@ -168,15 +168,146 @@
 
         for ($i=0; $i < 100 ; $i++) { 
             $arr1[] = getrand($arr1);
-            $arr1[] = getrand($arr2);
+            $arr2[] = getrand($arr2);
         }
 
         function getrand($array){
-            $found = false;
-            while ($found === false ){
-                
+            $randNum = null;
+            while ($randNum === null ){
+                $newNum = rand(100, 999);
+                if(in_array($newNum, $array) !== true ){
+                    $randNum = $newNum;
+                }
             }
+            return $randNum;
         }
+
+        echo 'Arr1: [' . implode(', ', $arr1) . ']<br/><br/>';
+        echo 'Arr2: [' . implode(', ', $arr2) . ']<br/>';
+        ?>
+    </p>
+    <p>7. Sugeneruokite masyvą, kuris būtų sudarytas iš reikšmių, kurios yra pirmame 6 uždavinio masyve, bet nėra antrame 6 uždavinio masyve.</p>
+    <p class='solution'>
+        <?php
+            $arr3 = [];
+            for ($i=0; $i <count($arr1) ; $i++) { 
+                if (!in_array($arr1[$i], $arr2)){
+                    $arr3[] = $arr1[$i];
+                }
+            }
+            echo 'Arr3: [' . implode(', ', $arr3) . ']<br/>';
+        ?>
+    </p>
+    <p>8. Sugeneruokite masyvą iš elementų, kurie kartojasi abiejuose 6 uždavinio masyvuose.</p>
+    <p class='solution'>
+        <?php
+            $arr4 = [];
+            for ($i=0; $i <count($arr1) ; $i++) { 
+                if (in_array($arr1[$i], $arr2)){
+                    $arr4[] = $arr1[$i];
+                }
+            }
+            echo 'Arr4: [' . implode(', ', $arr4) . ']<br/>';
+        ?>
+    </p>
+    <p>9. Sugeneruokite masyvą, kurio indeksus sudarytų pirmo 6 uždavinio masyvo reikšmės, o jo reikšmės iš būtų antrojo masyvo.</p>
+    <p class='solution'>
+        <?php
+            $arr5 = [];
+            for ($i=0; $i <count($arr1) ; $i++) { 
+                $arr5[$arr1[$i]] = $arr2[$i];
+            }
+            print_r ($arr5);
+        ?>
+    </p>
+    <p>10. Sugeneruokite 10 skaičių masyvą pagal taisyklę: Du pirmi skaičiai- atsitiktiniai nuo 5 iki 25. Trečias, pirmo ir antro suma. Ketvirtas- antro ir trečio suma. Penktas trečio ir ketvirto suma ir t.t.
+    </p>
+    <p class='solution'>
+        <?php
+        $arr6 = [];
+            for ($i=0; $i <10 ; $i++) { 
+                if ($i < 2) {
+                    $arr6[] = rand(5, 25);
+                }else{
+                    $arr6[] = $arr6[($i - 2)] + $arr6[$i - 1];
+                }
+            }
+            echo 'Arr6: [' . implode(', ', $arr6) . ']<br/>';
+        ?>
+    </p>
+    <p>11. Sugeneruokite 101 elemento masyvą su atsitiktiniais skaičiais nuo 0 iki 300. Reikšmes kurios tame masyve yra ne unikalios pergeneruokite iš naujo taip, kad visos reikšmės masyve būtų unikalios. Išrūšiuokite masyvą taip, kad jo didžiausia reikšmė būtų masyvo viduryje, o einant nuo jos link masyvo pradžios ir pabaigos reikšmės mažėtų. Paskaičiuokite pirmos ir antros masyvo dalies sumas (neskaičiuojant vidurinės). Jeigu sumų skirtumas (modulis, absoliutus dydis) yra didesnis nei | 30 | rūšiavimą kartokite. (Kad sumos nesiskirtų viena nuo kitos daugiau nei per 30).</p>
+    <p class='solution'>
+        <?php
+            $arr7 = [];
+            for ($i=0; $i <101 ; $i++) { 
+                    $arr7[] = rand(0, 300);
+            }
+            echo 'Arr7: [' . implode(', ', $arr7) . ']<br/><br/>';
+
+            $arr7NotUniqs =   array_filter(array_count_values($arr7), fn($a) => $a > 1);
+            foreach(array_keys($arr7NotUniqs) as $key){
+                for ($i=1; $i < $arr7NotUniqs[$key]; $i++){ // last duplicate wont be replacec as it's not a duplicate anymore
+                    $id = array_search($key, $arr7);
+                    $arr7[$id] = getrand($arr7);
+                }
+            }
+            echo 'Arr7 no duplicates: [' . implode(', ', $arr7) . ']<br/>';
+            usort($arr7, fn($a, $b) => $b - $a);
+            
+            $max = $arr7[0];
+            $arr1 = [];
+            $arr2 = [];
+            for($i=1; $i < 101; $i += 2){
+                $arr1[] = $arr7[$i];
+                $arr2[] = $arr7[$i + 1];
+            }
+
+
+            if (array_sum($arr1) > array_sum($arr2)){
+                $arrSumDif = array_sum($arr1) - array_sum($arr2); 
+            } else{
+                $arrSumDif = array_sum($arr2) - array_sum($arr1); 
+            }
+
+            while ($arrSumDif > 30){
+                $fix = arraysrevamp($arr1, $arr2);
+                $arr1 = $fix[0];
+                $arr2 = $fix[1];
+
+                if (array_sum($arr1) > array_sum($arr2)){
+                    $arrSumDif = array_sum($arr1) - array_sum($arr2); 
+                } else{
+                    $arrSumDif = array_sum($arr2) - array_sum($arr1); 
+                }
+            }
+
+            function arraysrevamp($a1, $a2){
+                for ($i=0; $i < count($a1); $i++) { 
+                
+                    $a = $a1[$i];
+                    $b = $a2[$i];
+                    $a1[$i] = $b;
+                    $a2[$i] = $a;
+                    if (array_sum($a1) > array_sum($a2)){
+                        $arrSumDif = array_sum($a1) - array_sum($a2);
+                    } else{
+                        $arrSumDif = array_sum($a2) - array_sum($a1);
+                    }
+    
+                    if ($arrSumDif < 31){
+                        return [$a1, $a2];
+                    }
+                }    
+                return [$a1, $a2];
+            }
+
+            usort($arr1, fn($a, $b) => $a <=> $b);
+            usort($arr2, fn($a, $b) => $b <=> $a);
+
+            $result = array_merge($arr1, [$max], $arr2);
+            echo 'Arr7 sort sum < 31: ' . implode(', ', $result) . '<br/>';
+            echo 'Arrays Sum diference: ' . $arrSumDif; 
+            
         ?>
     </p>
 </body>
