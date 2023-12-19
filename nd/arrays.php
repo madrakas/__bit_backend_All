@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./nd.css">
 </head>
 <body>
-<h1>Stringai (movie edition)</h1>    
+<h1>Masyvai</h1>    
 <p>1. Sugeneruokite masyvą iš 30 elementų (indeksai nuo 0 iki 29), kurių reikšmės yra atsitiktiniai skaičiai nuo 5 iki 25.
 </p>
     <?php echo '<pre>';?>
