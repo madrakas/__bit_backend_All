@@ -101,7 +101,83 @@
         echo 'i) removed even indexes: [' . implode(', ', $result) . '].<br/>';
         ?>
     </p>
-    <p>Sugeneruokite masyvą, kurio reikšmės atsitiktinės raidės A, B, C ir D, o ilgis 200. Suskaičiuokite kiek yra kiekvienos raidės.</p>
+    <p>3. Sugeneruokite masyvą, kurio reikšmės atsitiktinės raidės A, B, C ir D, o ilgis 200. Suskaičiuokite kiek yra kiekvienos raidės.</p>
+    <p class='solution'>
+        <?php 
+            $result = [];
+            $letters = ['A', 'B', 'C', 'D'];
+            for ($i=0; $i < 200; $i++) { 
+                $result[] = $letters[rand(0, 3)];
+            }
+            echo '[' . implode(', ', $result) . ']<br/>';
+            $counts = array_count_values($result);
+            echo "A: $counts[A], B: $counts[B], C: $counts[C], D: $counts[D]";
+        ?>
+    </p>
 
+    <p>4. Išrūšiuokite 3 uždavinio masyvą pagal abecėlę.</p>
+    <p class='solution'>
+        <?php
+        usort($result, fn($a, $b) => $a <=> $b);
+        echo '[' . implode(', ', $result) . ']<br/>';
+        ?>
+    </p>
+    <p>5. Sugeneruokite 3 masyvus pagal 3 uždavinio sąlygą. Sudėkite masyvus, sudėdami atitinkamas reikšmes. Paskaičiuokite kiek unikalių (po vieną, nesikartojančių) reikšmių ir kiek unikalių kombinacijų gavote.</p>
+    <p class='solution'>
+        <?php
+            $arr1 = [];
+            $arr2 = [];
+            $arr3 = [];
+            $arr4 = [];
+            for ($i=0; $i < 200; $i++) { 
+                $arr1[] = $letters[rand(0, 3)];
+                $arr2[] = $letters[rand(0, 3)];
+                $arr3[] = $letters[rand(0, 3)];
+            }
+            for ($i=0; $i < count($arr1); $i++) { 
+                $arr4[] = $arr1[$i] . $arr2[$i]  . $arr3[$i];
+            }
+            
+            echo 'Array of triplets: [' . implode(', ', $arr4) . '].<br/><br/>';
+            $counter1 = array_count_values($arr4);
+            echo 'Unique triplets: [' . implode(', ', array_keys($counter1)) . '].<br/><br/>';
+            $counter2 = $counter1;
+            
+            echo 'Unique triplets count: ' . count($counter1) . '<br/><br/>';;
+            // ABC
+            // ABD
+            // ACD
+            // BCD
+
+            $counter2 = array_filter($counter2, function($key) {
+                return (str_contains($key, 'A') && str_contains($key, 'B') && str_contains($key, 'C')) ||
+                (str_contains($key, 'A') && str_contains($key, 'B') && str_contains($key, 'D')) ||
+                (str_contains($key, 'A') && str_contains($key, 'C') && str_contains($key, 'D')) ||
+                (str_contains($key, 'B') && str_contains($key, 'C') && str_contains($key, 'D'));
+            }, ARRAY_FILTER_USE_KEY);
+            
+            echo 'Unique triplets with unique parts: [' .implode(', ', array_keys($counter2)) . ']<br/><br/>';
+            echo 'Unique triplets with unique parts count: ' . count($counter2) . '<br/>';
+        ?>
+    </p>
+    <p>6. Sugeneruokite du masyvus, kurių reikšmės yra atsitiktiniai skaičiai nuo 100 iki 999. Masyvų ilgiai 100. Masyvų reikšmės turi būti unikalios savo masyve (t.y. neturi kartotis).</p>
+    <p class='solution'>
+        <?php
+        $arr1 = [];
+        $arr2 = [];
+
+        for ($i=0; $i < 100 ; $i++) { 
+            $arr1[] = getrand($arr1);
+            $arr1[] = getrand($arr2);
+        }
+
+        function getrand($array){
+            $found = false;
+            while ($found === false ){
+                
+            }
+        }
+        ?>
+    </p>
 </body>
 </html>
