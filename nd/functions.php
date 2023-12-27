@@ -150,5 +150,122 @@
 
     ?>
 </div>
+<p>8. Suskaičiuokite septinto uždavinio elementų, kurie nėra masyvai, sumą. Skaičiuoti reikia visuose masyvuose ir submasyvuose.</p>
+
+<div class='solution' style='width: 100%'>
+    <?php
+        function countNonArrs($arr){
+            $result = 0;
+            foreach ($arr as $val) {
+                if (is_array($val)) {
+                    $result += countNonArrs($val);
+                } else {
+                    $result += $val;
+                }        
+            
+            }
+            return $result;
+        }
+
+        echo 'Suma: ' . countNonArrs($arr7);
+    ?>
+    </div>
+<p>9. Sugeneruokite masyvą iš trijų elementų, kurie yra atsitiktiniai skaičiai nuo 1 iki 33. Jeigu tarp trijų paskutinių elementų yra nors vienas ne pirminis skaičius, prie masyvo pridėkite dar vieną elementą- atsitiktinį skaičių nuo 1 iki 33. Vėl patikrinkite pradinę sąlygą ir jeigu reikia pridėkite dar vieną elementą. Kartokite, kol sąlyga nereikalaus pridėti elemento.</p>
+<div class='solution' style='width: 100%'>
+    <?php
+            $arr9 = [];
+           
+            for ($i=0; $i < 3 ; $i++) { 
+                $arr9[] = rand(1, 33);
+            }
+            
+            function threeLastWontBePrimals($arr){
+                $primals = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31];
+                $last3 = [$arr[count($arr) - 3], $arr[count($arr) - 2], $arr[count($arr) - 1]];
+                
+                $primalCount = 0;
+                foreach($last3 as $testNum){
+                    if (in_array($testNum, $primals)){
+                        $primalCount ++;
+                    }
+                }
+                
+                if ($primalCount > 0){
+                   $arr[] = rand(1, 33);
+                   $arr = threeLastWontBePrimals($arr);
+                }
+                return $arr;
+
+            }
+
+            echo '<pre>';
+            print_r(threeLastWontBePrimals($arr9));
+            echo '</pre>';
+    ?>
+</div>
+<p>10. Sugeneruokite masyvą iš 10 elementų, kurie yra masyvai iš 10 elementų, kurie yra atsitiktiniai skaičiai nuo 1 iki 100. Jeigu tokio didelio masyvo (ne atskirai mažesnių) pirminių skaičių vidurkis mažesnis už 70, suraskite masyve mažiausią skaičių (nebūtinai pirminį) ir prie jo pridėkite 3. Vėl paskaičiuokite masyvo pirminių skaičių vidurkį ir jeigu mažesnis nei 70 viską kartokite. </p>
+<div class='solution' style='width: 100%'>
+    <?php
+        $arr10 = [];
+        for ($i0=0; $i0 < 10; $i0++) { 
+
+            $element = [];
+            for ($i=0; $i < 10; $i++) { 
+                $element[] = rand(1, 100);
+            }
+            $arr10[] = $element;
+        }
+
+
+
+        function extractPrimals($arr){
+            $result = [];
+            $primals = [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+            foreach($arr as $subArr){
+                foreach($subArr as $testNum){
+                    if (in_array($testNum, $primals)){
+                       $result[] = $testNum;
+                    }
+                }
+            }
+            return $result;
+        }
+
+        function increaseSmallestNumBy3($arr){
+            $minnum=$arr[0][0];
+            $minidx0 = 0;
+            $minidx1 = 0;
+            for ($i0=0; $i0 <10 ; $i0++) { 
+                for ($i1=0; $i1 <10 ; $i1++) { 
+                    if ($arr[$i0][$i1] < $minnum){
+                        $minnum = $arr[$i0][$i1];
+                        $minidx0 = $i0;
+                        $minidx1 = $i1;
+                    }
+                }
+            }
+            //  echo $minidx0 . ' | ' . $minidx1 . '<br/>';
+            $arr[$minidx0][$minidx1] = $arr[$minidx0][$minidx1] + 3;
+            return $arr;
+        }
+
+        function solve10($arr){
+            $primals = extractPrimals($arr);
+            $primAver = array_sum($primals) / count($primals);
+            if ($primAver < 70){
+                $arr = increaseSmallestNumBy3($arr);
+                $arr = solve10($arr);
+            }
+            return $arr;
+        }
+
+        echo '<pre>';
+        // print_r($arr10);
+        // $arr10 = increaseSmallestNumBy3($arr10);
+        print_r(solve10($arr10));
+        echo '</pre>';
+    ?>
+</div>
+
 </body>
 </html>
