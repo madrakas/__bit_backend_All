@@ -20,9 +20,50 @@ class Bebras {
         };
     }
 
+    public function __set($prop, $val){
+        if ($prop === 'ugis') {
+            if ($val < 0.8 || $val > 1.0) {
+                echo 'Blogai įvestas ūgis';
+                return;
+            }
+            $this->ugis = $val;
+        }
+    }
+
+    public function __construct(){
+        echo 'bebras atėjo<br/>';
+    }
+
+    public function __destruct(){
+        echo 'bebras išėjo<br/>';
+    }
+
+    public function __serialize() : array {
+        return [
+            'ugis' => $this->ugis,
+            'svoris' => $this->svoris,
+        ];
+    }
+
+    public function __unserialize(array $data) : void {
+               $this->ugis =  $data['ugis'] * 2;
+               $this->svoris =  $data['svoris'];
+    }
+
+    public function __toString(): string {
+        return "<br/>Bebras  spalva: $this->spalva,  ugis: $this->ugis, svoris: $this->svoris <br/>";
+    }
+
+    public function __invoke(){
+        echo '<br>Bebras sako:<br/>';
+        echo 'Labas<br/>';
+    }
+
     private function goKaramba(){
         return 'uodega: ' . rand(20, 30) . 'cm';
     }
+
+
 
     // Getter methods
     public function koksSvoris(){
