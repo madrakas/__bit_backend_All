@@ -80,5 +80,79 @@
 
     ?>
 </div>
+<p>6. Sukurti klasę Stikline. Sukurti privačią savybę turis ir kiekis. Parašyti metodą ipilti($kiekis), kuris keistų savybę kiekis. Jeigu stiklinės tūris yra mažesnis nei pilamas kiekis- kiekis netelpa ir būna lygus tūriui. Parašyti metodą ispilti(), kuris grąžiną kiekį. Pilant išpilamas visas kiekis, tas kas netelpa, nuteka per stalo viršų. Sukurti tris stiklinės objektus su tūriais: 200, 150, 100. Didžiausią pripilti pilną ir tada ją ispilti į mažesnę stiklinę, o mažesnę į dar mažesnę.
+</p>
+<div class='solution'>
+    <?php
+        require(__DIR__ . '/6/Stikline.php');
+        $stikline1 = new Stikline(200);
+        $stikline2 = new Stikline(150);
+        $stikline3 = new Stikline(100);
+     
+        $stikline1->ipilti(250);
+
+        $stikline2->ipilti($stikline1->ispilti());
+        $stikline3->ipilti($stikline2->ispilti());
+
+        echo 'Stikline1: ' . $stikline1->koksKiekis() . '<br/>';
+        echo 'Stikline2: ' . $stikline2->koksKiekis() . '<br/>';
+        echo 'Stikline3: ' . $stikline3->koksKiekis() . '<br/>';
+    ?>
+</div>
+<p>7. Sukurti klasę Grybas. Sukurti klasę Krepsys. Krepsys turi konstantą DYDIS lygią 500. Grybas turi tris privačias savybes: valgomas, sukirmijes, svoris. Kuriant Grybo objektą jo savybės turi būti atsitiktinai priskiriamos taip: valgomas- true arba false, sukirmijes- true arba false ir svoris- nuo 5 iki 45. Eiti grybauti, t.y. Kurti naujus Grybas objektus, jeigu nesukirmijęs ir valgomas dėti į Krepsi objektą, kol bus pririnktas pilnas krepšys nesukirmijusių ir valgomų grybų (gali būti biški daugiau nei DYDIS).
+</p>
+
+<div class='solution'>
+    <?php
+        require (__DIR__ . '/7/Krepsys.php');
+        require (__DIR__ . '/7/Grybas.php');
+
+        $rinkinys = 0;
+        while ($rinkinys < Krepsys::DYDIS) {
+            $laimikis = new Grybas;
+            $rinkinys += $laimikis->geroGryboSvoris();
+        }
+        echo 'Krepšio svoris: ' . $rinkinys;
+    ?>
+</div>
+<p>8. Patobulinti 2 uždavinio piniginę taip, kad būtų galima skaičiuoti kiek piniginėje yra monetų ir kiek banknotų. Parašyti metodą monetos(), kuris skaičiuotų kiek yra piniginėje monetų ir metoda banknotai() - popierinių pinigų skaičiavimui.
+</p>
+<div class='solution'>
+<?php
+        // require(__DIR__ .'/2/Pinigine.php');
+        require(__DIR__ .'/8/Pinigine2.php');
+        
+        
+        $prada = new Pinigine2;
+        $prada->ideti(45.5);
+        $prada->ideti(1);
+        $prada->ideti(0.99);
+
+        echo $prada->monetos() . '<br/>';
+        echo $prada->banknotai();
+    ?>
+</div>
+
+<p>9. (STATIC) Sukurkite klasę MarsoPalydovas.  Kontroliuokite objekto kūrimą iš klasės naudodami statinį metodą. Padarykite taip, kad iš viso būtų galima sukurti tik du objektus iš šitos klasės. Pirmam sukuriamam objektui įrašykite privačią savybę vardas lygią stringui “Deimas”, o antram tokią pat savybę tik lygią stringui “Fobas”. Bandant sukurti trečią objektą, turėtų būti grąžinamas vienas iš anksčiau sukurtų objektų parinktas atsitiktine tvarka.
+</p>
+<div class='solution'>
+    <?php
+        require (__DIR__ . '/9/MarsoPalydovas.php');
+
+        $sp1 = MarsoPalydovas::getPalydovai();
+        $sp2 = MarsoPalydovas::getPalydovai();
+        $sp3 = MarsoPalydovas::getPalydovai();
+        $sp4 = MarsoPalydovas::getPalydovai();
+        $sp5 = MarsoPalydovas::getPalydovai();
+
+        echo '<pre>';
+        var_dump($sp1);
+        var_dump($sp2);
+        var_dump($sp3);
+        var_dump($sp4);
+        var_dump($sp5);
+        echo '</pre>';
+    ?>
+</div>
 </body>
 </html>

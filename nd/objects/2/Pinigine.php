@@ -9,7 +9,7 @@
 
         public function ideti($kiekis){
 
-            echo 'Įdedami pinigai' . $kiekis . '<br/>';
+            echo 'Įdedami pinigai ' . $kiekis . '<br/>';
 
             $whole = floor($kiekis); 
             $fraction = $kiekis - $whole; 
