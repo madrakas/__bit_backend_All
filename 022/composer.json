@@ -1,0 +1,17 @@
+{
+    "name": "raides/dideles",
+    "description": "abc",
+    "autoload": {
+        "psr-4": {
+            "": "",
+            "Visai\\Kitas\\Dalykas\\": "d2-folderis/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Racoon",
+            "email": "racoon@racoon.com"
+        }
+    ],
+    "require": {}
+}

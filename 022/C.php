@@ -1,5 +1,7 @@
 <?php
-class C extends A {
+use  B\Space\B;
+
+class C extends B {
 
     public function __construct()
     {
