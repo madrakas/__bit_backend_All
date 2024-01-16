@@ -1,0 +1,17 @@
+{
+    "name": "arvydas/colors",
+    "description": "Nice colors",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Arvydas\\Colors\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bebras",
+            "email": "bebras@gmail.com"
+        }
+    ],
+    "require": {}
+}
