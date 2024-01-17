@@ -1,3 +1,9 @@
 <?php 
+use Colors\App\App;
 
-echo '<br/> -- Colors -- <br/>';
+require '../vendor/autoload.php';
+
+define('ROOT', __DIR__ . '/../');
+define('URL', 'http://super-colors.test');
+
+echo App::run();
