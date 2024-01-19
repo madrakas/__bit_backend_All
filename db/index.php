@@ -16,7 +16,7 @@ $options = [
 $pdo = new PDO($dsn, $user, $pass, $options);
 
 $sql = "SELECT id, name, height, type FROM trees
-WHERE type <> 'palmė' -- AND height > 15
+-- WHERE type <> 'palmė' -- AND height > 15
 -- ORDER BY type ASC, height DESC
 -- LIMIT 0, 3";
 
@@ -37,6 +37,10 @@ $trees = $stmt->fetchall();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maria Crud Trees</title>
     <style>
+        body {
+            font-family: Ariel;
+            margin-left: 20px;
+        }
       table {
         width: 100%;
         border-collapse: collapse;
@@ -66,6 +70,36 @@ $trees = $stmt->fetchall();
         tr:hover {
         background-color: #e6f7ff; /* Light blue background on hover */
         }
+
+        
+.forms {
+            margin-top: 20px;
+            display: flex;
+        }
+        .forms form {
+            width: 33%;
+            margin-right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            box-shadow: 0 0 5px #ccc;
+            box-sizing: border-box;
+        }
+        .forms form input, select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white;
+        }
+        .forms form button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -90,6 +124,19 @@ $trees = $stmt->fetchall();
             <?php endforeach; ?>
         </tbody>
     </table>
+    <div class="forms">
+        <form action="create.php" method="post">
+            <h2>Plant a tree</h2>
+            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="height" placeholder="Height">
+            <select name="type">
+                <option value="Lapuotis">Lapuotis</option>
+                <option value="Spygliuotis">Spygliuotis</option>
+                <option value="Palmė">Palmė</option>
+            </select>
+            <button type="submit">Plant Tree</button>
+        </form>
+    </div>
    
 </body>
 </html>
