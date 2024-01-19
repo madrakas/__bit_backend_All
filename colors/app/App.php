@@ -41,6 +41,18 @@ class App{
             return (new ColorController)->store($_POST);
         }
 
+        if ('POST' === $method && count($url) ===3 && $url[0] === 'colors' && $url[1] === 'destroy'){
+            return (new ColorController)->destroy($url[2]);
+        }
+
+        if ('GET' === $method && count($url) ===3 && $url[0] === 'colors' && $url[1] === 'edit'){
+            return (new ColorController)->edit($url[2]);
+        }
+
+        if ('POST' === $method && count($url) ===3 && $url[0] === 'colors' && $url[1] === 'update'){
+            return (new ColorController)->update($url[2], $_POST);
+        }
+
         return '<h1>404</h1>';
     }
 

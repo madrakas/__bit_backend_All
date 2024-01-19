@@ -35,5 +35,34 @@ class ColorController {
         App::redirect('colors');
     }
 
+    public function destroy($id){
+        $writer = new FileBase('colors');
+        $writer->delete($id);
+        return App::redirect('colors');
+    }
+
+    public function edit($id) {
+        $writer = new FileBase('colors');
+        $color = $writer->show($id);
+
+        return app::view('colors/edit', [
+            'title' => 'Edit color',
+            'color' => $color
+        ]);
+    }
+
+    public function update($id, $request) {
+        
+        $color = $request['color'];
+        $size = $request['size'];
+
+        $writer = new FileBase('colors');
+        $writer->update($id, (object)[
+            'color' => $color,
+            'size' => $size
+        ]);
+
+        return App::redirect('colors');
+    }
     
 }
