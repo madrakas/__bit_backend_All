@@ -7,13 +7,26 @@ use Colors\App\DB\FileBase;
 
 class ColorController {
 
-    public function index(){
+    public function index($request){
         $reader = new Filebase('colors');
         $colors = $reader->showAll();
 
+        $sort = $request['sort'] ?? null;
+        if ($sort == 'size-asc') {
+            usort($colors, fn($a, $b) => $a->size <=> $b->size);
+            $sortValue = 'size-desc'; 
+        } elseif($sort == 'size-desc') {
+            usort($colors, fn($a, $b) => $b->size <=> $a->size);
+            $sortValue = 'size-asc'; 
+        } else {
+            $sortValue = 'size-asc'; 
+        }
+
+       
         return App::view('colors/index', [
             'title' => 'All colors',
-            'colors' => $colors
+            'colors' => $colors,
+            'sortValue' => $sortValue
         ]);
     }
 

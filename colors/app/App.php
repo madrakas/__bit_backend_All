@@ -8,10 +8,13 @@ class App{
 
     public static function run()
     {
+
         $server = $_SERVER['REQUEST_URI'];
+        $server = preg_replace('/\?.*$/', '', $server);
+        
         $url = explode('/', $server);
         array_shift($url);
-
+        // echo $server;
         // print_r($url);
         // return '<h1>Colors</h1>';
         return self::router($url);
@@ -31,7 +34,7 @@ class App{
         }
 
         if ('GET' === $method && count($url) === 1 && $url[0] === 'colors'){
-            return(new ColorController)->index();
+            return(new ColorController)->index($_GET);
         }
         if ('GET' === $method && count($url) === 2 && $url[0] === 'colors' && $url[1] === 'create'){
             return(new ColorController)->create();
