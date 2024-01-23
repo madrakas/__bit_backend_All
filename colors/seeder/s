@@ -1,0 +1,30 @@
+<?php
+
+echo "seeder started\n";
+
+$colors = [
+    [
+        "color" => "#ff0000",
+        "size" => "50",
+        "name" => "Red",
+        "id" => 1
+    ],
+        
+    [
+        "color" => "#400040",
+        "size" => "32",
+        "name" => "Blackberry",
+        "id" => 2
+    ], 
+    [
+        "color" => "#400040",
+        "size" => "32",
+        "name" => "Blackberry",
+        "id" => 3
+    ]
+    ];
+ 
+// file_put_contents(__DIR__ . '/../data/users.ser',  serialize($users));
+file_put_contents(__DIR__ . '/../data/colors.json',  json_encode($colors));
+file_put_contents(__DIR__ . '/../data/colors-index.json',  json_encode(count($colors) + 1));
+echo ("seeder finished\n");
