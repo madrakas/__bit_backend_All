@@ -26,9 +26,16 @@
         </li>
       </ul>
       <div class="d-flex">
-        
+        <?php if ($auth): ?>
+          <div class="me-3">Hello, <?= $auth ?></div>
+          <form action="<?= URL ?>/logout" method="post">
+            <button class="btn btn-outline-danger">Logout</button>
+          </form>
+        <?php else: ?>
+          <a href="<?= URL ?>/login" class="btn btn-outline-primary">Login</a>
+        <?php endif ?>
       </div>
     </div>
   </div>
 </nav>
-<?php require ROOT . 'views/message.php' ?>
+<?php require ROOT. 'views/message.php' ?>

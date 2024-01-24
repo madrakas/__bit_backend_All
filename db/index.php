@@ -24,9 +24,16 @@ $stmt = $pdo->query($sql);
 
 $trees = $stmt->fetchall();
 
-// echo '<pre>';
-// print_r($trees);
-// echo '</pre>';
+
+$sql = "
+    SELECT AVG(height) AS average, COUNT(*) AS count
+    FROM trees
+    ";
+
+$stmt = $pdo->query($sql);
+
+
+$stat = $stmt->fetch();
 
 ?>
 
@@ -104,6 +111,9 @@ $trees = $stmt->fetchall();
 </head>
 <body>
     <h1>Trees</h1>
+
+    <h2>Average height: <?= $stat['average'] ?> m</h2>
+    <h2>Total trees: <?= $stat['count'] ?></h2>
     <table>
         <thead>
             <tr>
@@ -125,7 +135,7 @@ $trees = $stmt->fetchall();
         </tbody>
     </table>
     <div class="forms">
-        <form action="create.php" method="post">
+        <form action="store.php" method="post">
             <h2>Plant a tree</h2>
             <input type="text" name="name" placeholder="Name">
             <input type="text" name="height" placeholder="Height">
@@ -135,6 +145,18 @@ $trees = $stmt->fetchall();
                 <option value="Palmė">Palmė</option>
             </select>
             <button type="submit">Plant Tree</button>
+        </form>
+
+        <form action="http://localhost/bit/db/destroy.php" method="post">
+            <h2>Cut a tree</h2>
+            <input type="text" name="id" placeholder="Id">
+            <button type="submit">Cut Tree</button>
+        </form>
+        <form action="http://localhost/bit/db/update.php" method="post">
+            <h2>Grow a tree</h2>
+            <input type="text" name="id" placeholder="Id">
+            <input type="text" name="height" placeholder="Height">
+            <button type="submit">Grow</button>
         </form>
     </div>
    
