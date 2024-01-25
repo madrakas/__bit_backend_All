@@ -1,5 +1,5 @@
 <?php
-namespace Colors\App\DB;
+namespace App\DB;
 
 
 interface DataBase

@@ -4,12 +4,18 @@ namespace Colors\App\Controllers;
 
 use Colors\App\App;
 use Colors\App\DB\FileBase;
+use Colors\App\DB\MariaBase;
 use Colors\App\Message;
 
 class ColorController {
 
     public function index($request){
-        $reader = new Filebase('colors');
+
+        $reader = match(DB){
+            'file' => new Filebase('colors'),
+            'maria' => new Mariabase('colors'),
+        };
+
         $colors = $reader->showAll();
 
         $sort = $request['sort'] ?? null;
@@ -64,7 +70,12 @@ class ColorController {
 
         curl_close($curl);
 
-        $writer = new FileBase('colors');
+        $writer = match(DB){
+            'file' => new Filebase('colors'),
+            'maria' => new Mariabase('colors'),
+        };
+
+
         $writer->create((object) [
             'color' => $color,
             'size' => $size,
@@ -76,14 +87,24 @@ class ColorController {
     }
 
     public function destroy($id){
-        $writer = new FileBase('colors');
+        
+        $writer = match(DB){
+            'file' => new Filebase('colors'),
+            'maria' => new Mariabase('colors'),
+        };
+        
         $writer->delete($id);
         Message::get()->set('info', 'Color was deleted');
         return App::redirect('colors');
     }
 
     public function edit($id) {
-        $writer = new FileBase('colors');
+        $writer = match(DB){
+            'file' => new Filebase('colors'),
+            'maria' => new Mariabase('colors'),
+        };
+
+        
         $color = $writer->show($id);
 
         return app::view('colors/edit', [
@@ -120,7 +141,11 @@ class ColorController {
 
         curl_close($curl);
 
-        $writer = new FileBase('colors');
+        $writer = match(DB){
+            'file' => new Filebase('colors'),
+            'maria' => new Mariabase('colors'),
+        };
+
         $writer->update($id, (object) [
             'color' => $color,
             'size' => $size,

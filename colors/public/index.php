@@ -5,6 +5,8 @@ use Colors\APP\Auth;
 
 session_start();
 
+define('DB', 'maria');
+
 require '../vendor/autoload.php';
 
 define('ROOT', __DIR__ . '/../');
