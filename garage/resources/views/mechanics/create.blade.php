@@ -29,4 +29,4 @@
 @endsection
 
 
-@section('Title', 'Įdarbinti naują mechaniką')
+@section('title', 'Įdarbinti naują mechaniką')

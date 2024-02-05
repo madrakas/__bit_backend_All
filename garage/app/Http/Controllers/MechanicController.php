@@ -9,12 +9,26 @@ use App\Http\Requests\UpdateMechanicRequest;
 
 class MechanicController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $mechanics = Mechanic::all();
+
+        // dd($mechanics); // dump and die
+        // dump($mechanics);
+
+        return view('mechanics.index', [
+            'mechanics' => $mechanics,
+        ]);
     }
 
     /**
@@ -39,7 +53,9 @@ class MechanicController extends Controller
      */
     public function show(Mechanic $mechanic)
     {
-        //
+        return view('mechanics.show', [
+            'mechanic' => $mechanic,
+        ]);
     }
 
     /**
@@ -47,7 +63,9 @@ class MechanicController extends Controller
      */
     public function edit(Mechanic $mechanic)
     {
-        //
+        return view('mechanics.edit', [
+            'mechanic' => $mechanic,
+        ]);
     }
 
     /**
@@ -55,14 +73,29 @@ class MechanicController extends Controller
      */
     public function update(UpdateMechanicRequest $request, Mechanic $mechanic)
     {
-        //
+        $mechanic->update($request->all());
+
+        return redirect()->route('mechanics-index');
     }
+
+    /**
+     * Inicijuok mechaniko trynimą
+     */
+    public function delete(Mechanic $mechanic)
+    {
+        return view('mechanics.delete', [
+            'mechanic' => $mechanic,
+        ]);
+    }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Mechanic $mechanic)
     {
-        //
+        $mechanic->delete();
+
+        return redirect()->route('mechanics-index');
     }
 }
