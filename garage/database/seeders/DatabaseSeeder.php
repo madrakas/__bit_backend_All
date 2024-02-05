@@ -18,8 +18,28 @@ class DatabaseSeeder extends Seeder
         $faker = Faker::create('lt_LT');
         foreach(range(1, 20) as $i){
             DB::table('mechanics')->insert([
-                'name' => $faker->firstName(),
-                'surname' => $faker->lastName(),
+                'name' => $faker->firstName,
+                'surname' => $faker->lastName,
+            ]);
+        }
+
+        $trucksModels = [
+            'Volvo',
+            'Man',
+            'Scania',
+            'Mercedes',
+            'Iveco',
+            'Renault',
+            'DAF',
+            'Mitsubishi'
+        ];
+        
+        foreach(range(1, 100) as $i){
+
+            DB::table('trucks')->insert([
+                'brand' => $faker->randomElement($trucksModels),
+                'plate' => $faker->regexify('[A-Z]{3}-[0-9]{3}'),
+                'mechanic_id' => $faker->numberBetween(1, 20),
             ]);
         }
 

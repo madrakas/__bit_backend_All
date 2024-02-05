@@ -12,7 +12,7 @@
 
                 <ul class="list-group list-group-flush">
                     @foreach ($mechanic->trucks as $truck )
-                        <li class="list-group-item">{{ $truck->brand }}  {{ $truck->plate }}</li>
+                        <li class="list-group-item"><a href="{{route('trucks-show', $truck)}}">{{ $truck->brand }}  {{ $truck->plate }}</a></li>
                     @endforeach
                 </ul>
                     <a href="{{ route('mechanics-index') }}" class="btn btn-secondary m-3">Atšaukti</a>
