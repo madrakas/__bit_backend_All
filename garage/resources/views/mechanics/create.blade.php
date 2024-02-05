@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
-                <div class="card-header">Įdarbinti naują mechaniką</div>
+                <div class="card-header">Pridėti sunkvežimį</div>
                 <div class="card-body">
                     <form action="{{route('mechanics-store')}}" method="post">
                         <div class="form-group mb-3">
@@ -18,7 +18,7 @@
                             <input type="text" name="surname" class="form-control">
                             <small class="form-text text-muted">Įveskite naujo mechaniko pavardę</small>
                         </div>
-                        <button type="submit" class="btn btn-primary">Įdarbinti</button>
+                        <button type="submit" class="btn btn-primary">Pridėti</button>
                         @csrf
                     </form>
                 </div>
@@ -29,4 +29,4 @@
 @endsection
 
 
-@section('title', 'Įdarbinti naują mechaniką')
+@section('title', 'Pridėti sunkvežimį')

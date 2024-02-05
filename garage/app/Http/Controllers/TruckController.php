@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Truck;
+use App\Models\Mechanic;
 use App\Http\Requests\StoreTruckRequest;
 use App\Http\Requests\UpdateTruckRequest;
 
@@ -13,7 +14,10 @@ class TruckController extends Controller
      */
     public function index()
     {
-        //
+        $trucks = Truck::all();
+        return view('trucks.index', [
+            'trucks' => $trucks,
+        ]);
     }
 
     /**
@@ -21,7 +25,10 @@ class TruckController extends Controller
      */
     public function create()
     {
-        //
+        $mechanics = Mechanic::all();
+        return view('trucks.create', [
+            'mechanics' => $mechanics,
+        ]);
     }
 
     /**
@@ -29,7 +36,9 @@ class TruckController extends Controller
      */
     public function store(StoreTruckRequest $request)
     {
-        //
+        Truck::create($request->all());
+
+        return redirect()->route('trucks-index');
     }
 
     /**
@@ -63,4 +72,5 @@ class TruckController extends Controller
     {
         //
     }
+
 }
