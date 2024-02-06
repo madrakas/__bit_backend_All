@@ -7,14 +7,27 @@
             <div class="card mt-5">
                 <div class="card-header">
                     <h1>Dirbantys Mechanikai</h1>
-                    <form>
-                        <div class="form-group mb-3">
-                            <label class="ms-1">Rūšiavimas</label>
-                             <select class="form-select" name="sort">
-                                <option selected value="0">Nerūšiuota</option>
-                                
-                            </select>
-                            
+                    <form action="{{route('mechanics-index')}}">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Rūšiavimas</label>
+                                        <select class="form-select mt-2" name="sort">
+                                            @foreach ($sorts as $sortKey => $sortValue)
+                                            {{-- <option value="{{ $sortKey }}" @if($sortBy == $sortKey) selected @endif>{{ $sortValue }}</option> --}}
+                                            <option value="{{ $sortKey }}" @if ($sortKey === $sortBy) selected @endif>{{ $sortValue }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="from-group">
+                                        <button type="submit" class="btn btn-primary mt-5">Rodyti</button>
+                                        <a href="{{ route('mechanics-index') }}" class ="btn btn-secondary mt-5 ms-2">Atstatyti</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
