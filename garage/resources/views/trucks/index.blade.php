@@ -35,9 +35,9 @@
                                         <label class="m-2">Mechanikas</label>
                                         <select class="form-select mt-2" name="mechanic_id">
                                             <option value="0">Visi</option>
-                                            {{-- @foreach ($mechanics as $mechanic)
-                                            <option value="{{ $mechanic->id }}" @if($mechanicId == $mechanic->id) selected @endif>{{ $mechanic->name }} {{ $mechanic->surname }}</option>
-                                            @endforeach --}}
+                                            @foreach ($mechanics as $mechanic)
+                                            <option value="{{ $mechanic->id }}" @if($mechanicId === $mechanic->id) selected @endif>{{ $mechanic->name }} {{ $mechanic->surname }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -46,9 +46,9 @@
                                         <label class="m-2">Modelis</label>
                                         <select class="form-select mt-2" name="brand">
                                             <option value="">Visi</option>
-                                            {{-- @foreach ($brands as $brand)
+                                            @foreach ($brands as $brand)
                                             <option value="{{ $brand }}" @if($brandId == $brand) selected @endif>{{ $brand }}</option>
-                                            @endforeach --}}
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -89,7 +89,11 @@
                         @endforelse
                     </table>
                     <div>
+                        @if ($mechanicId)
+                        <a href="{{ route('trucks-create', ['mechanic_id' => $mechanicId]) }}" class="btn btn-success">Pridėti</a>
+                        @else
                         <a href="{{ route('trucks-create') }}" class="btn btn-success">Pridėti</a>
+                        @endif
                     </div>
                 </div>
             </div>
