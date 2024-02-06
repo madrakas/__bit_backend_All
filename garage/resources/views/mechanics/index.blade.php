@@ -21,6 +21,22 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-3">
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Puslapyje rezultatų</label>
+                                        <select class="form-select mt-2" name="per_page">
+                                            @foreach ($perPageSelect as $PerPageKey => $perPageValue)
+                                            <option value="{{ $PerPageKey }}" @if ($perPage === $PerPageKey) selected @endif>{{ $perPageValue }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Ieškoti mechaniko</label>
+                                        <input type="text" class="form-controll mt-2" name="s" value="{{$s}}">
+                                    </div>
+                                </div>
                                 <div class="col-2">
                                     <div class="from-group">
                                         <button type="submit" class="btn btn-primary mt-5">Rodyti</button>
@@ -59,9 +75,15 @@
                     </div>
                 </div>
             </div>
+            @if ($perPage)
+            <div class="mt-3">
+                {{ $mechanics->links() }}
+            </div>
+            @endif
         </div>
     </div>
 </div>
 @endsection
 
 @section('title', 'Dirbantys Mechanikai')
+

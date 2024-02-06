@@ -6,17 +6,44 @@ use App\Models\Truck;
 use App\Models\Mechanic;
 use App\Http\Requests\StoreTruckRequest;
 use App\Http\Requests\UpdateTruckRequest;
+use Illuminate\Http\Request;
 
 class TruckController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $trucks = Truck::all();
+        $sorts = Truck::getSorts();
+        $sortBy = $request->query('sort', '');
+        $perPageSelect = Truck::getPerPageSelect();
+        $perPage = (int) $request->query('per_page', 0);
+        
+        $trucks = Truck::query();
+
+        $trucks = match($sortBy) 
+        {
+            'model_asc' => $trucks->orderBy('brand'),
+            'model_desc' => $trucks->orderByDesc('brand'),
+            default => $trucks,
+        };
+
+
+        if ($perPage > 0) {
+            $trucks = $trucks->paginate($perPage)->withQueryString();
+        } else {
+            $trucks = $trucks->get();
+        }
+
+
+
         return view('trucks.index', [
             'trucks' => $trucks,
+            'sorts' => $sorts,
+            'sortBy' => $sortBy,
+            'perPageSelect' => $perPageSelect,
+            'perPage' => $perPage,
         ]);
     }
 

@@ -25,8 +25,27 @@ class MechanicController extends Controller
         // $mechanics = Mechanic::orderBy('surname', 'desc')->get();
         $sorts = Mechanic::getSorts();
         $sortBy = $request->query('sort', '');
+        $perPageSelect = Mechanic::getPerPageSelect();
+        $perPage = (int) $request->query('per_page', 0);
+        $s = $request->query('s', '');
 
         $mechanics = Mechanic::query();
+
+        if ($s) {
+            $keywords = explode(' ', $s);
+            if (count($keywords) > 1) {
+                $mechanics = $mechanics->where(function ($query) use ($keywords) {
+                    foreach (range(0, 1) as $index) {
+                        $query->orWhere('name', 'like', '%'.$keywords[$index].'%')
+                        ->where('surname', 'like', '%'.$keywords[1 - $index].'%');
+                    }
+                });
+            } else {
+                $mechanics = $mechanics
+                    ->where('name', 'like', "%{$s}%")
+                    ->orWhere('surname', 'like', "%{$s}%");
+            }
+        }
 
         $mechanics = match($sortBy) 
         {
@@ -37,7 +56,15 @@ class MechanicController extends Controller
             default => $mechanics,
         };
 
-        $mechanics = $mechanics->get();
+
+        if ($perPage > 0) {
+            $mechanics = $mechanics->paginate($perPage)->withQueryString();
+        } else {
+            $mechanics = $mechanics->get();
+        }
+
+        // $mechanics = $mechanics->get();
+        // $mechanics = $mechanics->paginate(8)->withQueryString();
 
         // dd($mechanics); // dump and die
         // dump($mechanics);
@@ -46,8 +73,13 @@ class MechanicController extends Controller
             'mechanics' => $mechanics,
             'sorts' => $sorts,
             'sortBy' => $sortBy,
+            'perPageSelect' => $perPageSelect,
+            'perPage' => $perPage,
+            's' => $s,
         ]);
     }
+
+ 
 
     /**
      * Show the form for creating a new resource.

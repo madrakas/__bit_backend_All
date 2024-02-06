@@ -22,9 +22,22 @@ class Mechanic extends Model
         'truck_count_desc' => 'Sunkvežimių skaičius 100-0',
     ];
 
+    protected static $perPageSelect = [
+        0 => 'Visi',
+        3 => 3,
+        11 => 11,
+        13 => 13,
+        29 => 29,
+    ];
+
     public static function getSorts()
     {
         return self::$sorts;
+    }
+
+    public static function getPerPageSelect()
+    {
+        return self::$perPageSelect;
     }
 
     public function trucks()

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
-                <div class="card-header">Redaguoti sunkvežimio duomenis</div>
+                <div class="card-header"><h1>Redaguoti sunkvežimio duomenis</h1></div>
                 <div class="card-body">
                     <form action="{{route('trucks-update', $truck)}}" method="post">
                         <div class="form-group mb-3">

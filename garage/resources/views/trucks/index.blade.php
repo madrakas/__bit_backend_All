@@ -5,7 +5,64 @@
     <div class="row justify-content-center">
         <div class="col-md-9">
             <div class="card mt-5">
-                <div class="card-header">Sunkvežimių parkas</div>
+                <div class="card-header">Sunkvežimių parkas
+                    <h1>Sunkvežimių parkas</h1>
+                    <form action="{{route('trucks-index')}}">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Rūšiavimas</label>
+                                        <select class="form-select mt-2" name="sort">
+                                            @foreach ($sorts as $sortKey => $sortValue)
+                                            <option value="{{ $sortKey }}" @if($sortBy == $sortKey) selected @endif>{{ $sortValue }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Puslapyje rezultatų</label>
+                                        <select class="form-select mt-2" name="per_page">
+                                            @foreach ($perPageSelect as $perPageKey => $perPageValue)
+                                            <option value="{{ $perPageKey }}" @if($perPage == $perPageKey) selected @endif>{{ $perPageValue }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Mechanikas</label>
+                                        <select class="form-select mt-2" name="mechanic_id">
+                                            <option value="0">Visi</option>
+                                            {{-- @foreach ($mechanics as $mechanic)
+                                            <option value="{{ $mechanic->id }}" @if($mechanicId == $mechanic->id) selected @endif>{{ $mechanic->name }} {{ $mechanic->surname }}</option>
+                                            @endforeach --}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Modelis</label>
+                                        <select class="form-select mt-2" name="brand">
+                                            <option value="">Visi</option>
+                                            {{-- @foreach ($brands as $brand)
+                                            <option value="{{ $brand }}" @if($brandId == $brand) selected @endif>{{ $brand }}</option>
+                                            @endforeach --}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Rodyti</button>
+                                        <a href="{{ route('trucks-index') }}" class="btn btn-secondary ms-2">Pradinis</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                
+                </div>
                 <div class="card-body">
                     <table class="table">
                         <tr>
@@ -36,6 +93,11 @@
                     </div>
                 </div>
             </div>
+            @if ($perPage)
+            <div class="mt-3">
+                {{ $trucks->links() }}
+            </div>
+            @endif
         </div>
     </div>
 </div>

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
-                <div class="card-header">Pridėti sunkvežimį</div>
+                <div class="card-header"><h1>Pridėti sunkvežimį</h1></div>
                 <div class="card-body">
                     <form action="{{route('mechanics-store')}}" method="post">
                         <div class="form-group mb-3">
