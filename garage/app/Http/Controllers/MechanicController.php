@@ -95,7 +95,7 @@ class MechanicController extends Controller
     public function store(StoreMechanicRequest $request)
     {
         Mechanic::create($request->all());
-        return redirect()->route('mechanics-index');
+        return redirect()->route('mechanics-index')->with('ok', 'štai ir naujas mechanikas!');
     }
 
     /**
@@ -125,7 +125,7 @@ class MechanicController extends Controller
     {
         $mechanic->update($request->all());
 
-        return redirect()->route('mechanics-index');
+        return redirect()->route('mechanics-index')->with('ok', 'Mechaniko duomenys atnaujinti.');
     }
 
     /**
@@ -145,7 +145,6 @@ class MechanicController extends Controller
     public function destroy(Mechanic $mechanic)
     {
         $mechanic->delete();
-
-        return redirect()->route('mechanics-index');
+        return redirect()->route('mechanics-index')->with('info', 'Labai gaila, bet mechanikas ištrintas.');
     }
 }

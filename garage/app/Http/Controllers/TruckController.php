@@ -85,7 +85,7 @@ class TruckController extends Controller
     {
         Truck::create($request->all());
 
-        return redirect()->route('trucks-index');
+        return redirect()->route('trucks-index')->with('ok', 'Sunkvežimis sėkmingai pridėtas.');
     }
 
     /**
@@ -118,7 +118,7 @@ class TruckController extends Controller
     {
         $truck->update($request->all());
 
-        return redirect()->route('trucks-index');
+        return redirect()->route('trucks-index')->with('info', 'Sunkvežimis sėkmingai atnaujintas.');
     }
 
     /**
@@ -138,7 +138,7 @@ class TruckController extends Controller
     {
         $truck->delete();
 
-        return redirect()->route('trucks-index');
+        return redirect()->route('trucks-index')->with('info', 'Sunkvežimis nurašytas.');;
     }
 
 }
