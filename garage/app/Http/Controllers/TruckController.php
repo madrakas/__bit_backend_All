@@ -15,7 +15,11 @@ class TruckController extends Controller
      */
     public function index(Request $request)
     {
-        $mechanics = Mechanic::orderBy('name')->get();
+        // $mechanics = Mechanic::all();    - Nieko nerūšiuojam, o pasiimam iš SQL kolekciją
+        // $mechnics= Mechanic::all()->SortByDesc('surname');  - ruošiuojam kolekciją o ne SQL
+
+
+        $mechanics = Mechanic::orderBy('name', 'desc')->get();  // - rūšiuojam SQL ir tada pasiimam į kolekciją
 
         $allBrands = Truck::select('brand')->distinct()->orderBy('brand')->get()->pluck('brand')->toArray();
 
@@ -50,8 +54,6 @@ class TruckController extends Controller
             $trucks = $trucks->get();
         }
 
-
-
         return view('trucks.index', [
             'trucks' => $trucks,
             'sorts' => $sorts,
@@ -84,7 +86,6 @@ class TruckController extends Controller
     public function store(StoreTruckRequest $request)
     {
         Truck::create($request->all());
-
         return redirect()->route('trucks-index')->with('ok', 'Sunkvežimis sėkmingai pridėtas.');
     }
 
