@@ -56,7 +56,7 @@
                                         Visi sunkvežimiai
                                     </a>
                                     <a class="dropdown-item" href="{{route('trucks-create')}}">
-                                        Naujas sunkvežimiai
+                                        Naujas sunkvežimis
                                     </a>
                                 </div>
                             </li>

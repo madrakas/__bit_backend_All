@@ -23,7 +23,7 @@
                              <select class="form-select" name="mechanic_id">
                                 <option selected value="0">Pasirinkite mechaniką</option>
                                 @foreach ($mechanics as $mechanic)
-                                
+
                                 {{-- <option value="{{$mechanic->id}}" @if($mechanic->id == $truck->mechanic_id) selected @endif>{{$mechanic->name}} {{$mechanic->surname}}</option> --}}
                                 <option value="{{$mechanic->id}}" 
                                 @if(old('mechanic_id', $truck->mechanic_id) == $mechanic->id) selected @endif
@@ -38,7 +38,6 @@
                         @csrf
                         @method('put')
                     </form>
-
                 </div>
             </div>
         </div>
