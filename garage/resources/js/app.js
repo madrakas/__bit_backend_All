@@ -2,6 +2,8 @@ import './bootstrap';
 
 console.log('Labas vakarėlis');
 
+let sortValue;
+
 const clearForm = form => {
     form.querySelectorAll('input').forEach(input => {
         input.value = '';
@@ -116,7 +118,10 @@ const addEventsToList = _ => {
 const getList = _ => {
     const list = document.querySelector('[data-list]');
     const url = list.dataset.url;
-    axios.get(url)
+
+    const sortUrl = sortValue ? `${url}?sort=${sortValue}` : url;
+    // console.log(sortUrl);
+    axios.get(sortUrl)
         .then(response => {
             list.innerHTML = response.data.html;
             addEventsToList();
@@ -153,3 +158,12 @@ if (document.querySelector('[data-create-form]')){
 if (document.querySelector('[data-list]')) {
    getList();
 }   
+
+if (document.querySelector('[data-sort-select]')) {
+    const select = document.querySelector('[data-sort-select]');
+    select.addEventListener('change', e => {
+        // console.log(e.target.value);
+        sortValue = e.target.value;
+        getList();
+    });
+}
