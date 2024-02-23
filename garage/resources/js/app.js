@@ -9,8 +9,27 @@ const clearForm = form => {
 }
 
 const destroyFromList = url => {
-
+    axios.delete(url)
+        .then(response => {
+            console.log(response.data);
+            getList();
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
+
+const updateFromList = (url, data) => {
+    axios.put(url, data)
+    .then(response => {
+        console.log(response.data);
+        getList();
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
 
 const deleteFromList = url => {
     // console.log('Delete', url);
@@ -28,6 +47,44 @@ const deleteFromList = url => {
                 const url = destroy.dataset.url;
                 destroyFromList(url);
                 section.innerHTML ='';
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+const editFromList = url => {
+    axios.get(url)
+        .then(response => {
+            const section = document.querySelector('[data-modal-edit]');
+            section.innerHTML = response.data.html;
+            section.querySelectorAll('[data-close]').forEach(button => {
+                button.addEventListener('click', _ => {
+                    section.innerHTML = '';
+                });
+            });
+            section.querySelector('[data-update]').addEventListener('click', e => {
+                const url = e.target.dataset.url;
+                const data = {};
+                section.querySelectorAll('input').forEach(input => {
+                    data[input.name] = input.value;
+                });
+                updateFromList(url, data);
+                section.innerHTML = '';
+            });
+        });
+}
+
+const showFromList = url => {
+    axios.get(url)
+        .then(response => {
+            const section = document.querySelector('[data-modal-show]');
+            section.innerHTML = response.data.html;
+            section.querySelectorAll('[data-close]').forEach(button => {
+                button.addEventListener('click', _ => {
+                    section.innerHTML = '';
+                });
             });
         })
         .catch(error => {

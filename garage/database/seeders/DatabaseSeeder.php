@@ -54,6 +54,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'briedis@gmail.com',
             'password' => Hash::make('123'),
         ]);
+
+        foreach(range(1, 66) as $i){
+            $companyName = $faker->company;
+            $companyNameParts = explode(' ', $companyName);
+            $companyNameWithoutFirstWord = implode(' ', array_slice($companyNameParts, 1));
+
+            DB::table('companies')->insert([
+                'name' => $companyNameWithoutFirstWord,
+                'type' => $faker->randomElement(['UAB', 'AB', 'IĮ', 'VšĮ']),
+            ]);
+        }
     }
 }
 

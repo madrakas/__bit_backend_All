@@ -48,24 +48,37 @@ class CompanyController extends Controller
 
     public function show(Company $company)
     {
-        //
+        $html = view('companies.show', ['company' => $company])->render();
+
+        return response()->json([
+            'html' => $html
+        ]);
     }
 
 
     public function edit(Company $company)
     {
-        //
-    }
+        $html = view('companies.edit', ['company' => $company])->render();
 
+        return response()->json([
+            'html' => $html
+        ]);
+    }
   
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        //
-    }
+        $company->update($request->all());
 
+        return response()->json([
+            'message' => 'Įmonė sėkmingai atnaujinta!'
+        ]);
+    }
    
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return response()->json([
+            'message' => 'Įmonė sėkmingai ištrinta'
+        ]);
     }
 }

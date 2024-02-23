@@ -39,6 +39,9 @@
     </div>
 </div>
 <section data-modal-delete></section>
+<section data-modal-edit></section>
+<section data-modal-show></section>
+
 
 @endsection
 

@@ -40,7 +40,7 @@
                                 <div class="col-2">
                                     <div class="from-group">
                                         <button type="submit" class="btn btn-primary mt-5">Rodyti</button>
-                                        <a href="{{ route('mechanics-index') }}" class ="btn btn-secondary mt-5 ms-2">Atstatyti</a>
+                                        <a href="{{ route('mechanics-index') }}" class ="btn btn-secondary mt-5 ms-1">Atstatyti</a>
                                     </div>
                                 </div>
                             </div>
